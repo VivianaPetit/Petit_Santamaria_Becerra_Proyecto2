@@ -15,7 +15,7 @@ public class HashTable {
      * Constructor de la clase HashTable.
      */
     public HashTable() {
-        this.array = new Resumen[10000];
+        this.array = new Resumen[10];
     }
     
     /**
@@ -26,7 +26,7 @@ public class HashTable {
     public int generarIndex(String titulo) {
         int hash = 0;
         for (char caracter : titulo.toCharArray()) {
-            hash = 31 * hash + caracter;
+            hash = 3 * hash + caracter;
         }
         int index = Math.abs(hash) % array.length;
         return index;
@@ -51,7 +51,6 @@ public class HashTable {
         
             if (this.array[index] == null){
                 this.array[index] = resumen;
-                System.out.println(index);
             } else {
                 if (!this.array[index].getTitulo().equals(resumen.getTitulo())) {
                     index = generarIndexAux(resumen.getTitulo());
@@ -69,5 +68,22 @@ public class HashTable {
                 System.out.println("Titulo: " + array1.getTitulo());
             }    
         } 
+    }
+    
+    public Resumen getResumenPorTitulo(String titulo){
+        int index = generarIndex(titulo);
+        Resumen resumen = getResumenAt(index);
+        return resumen;
+    }
+    public Resumen getResumenAt(int index){
+        return array[index];
+    }
+
+    public Resumen[] getArray() {
+        return array;
+    }
+
+    public void setArray(Resumen[] array) {
+        this.array = array;
     }
 }

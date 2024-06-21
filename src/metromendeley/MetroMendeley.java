@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package metromendeley;
-
+import Interfaz.*;
 /**
  *
- * @author vivia
+ * @author VivianaPetit
  */
 public class MetroMendeley {
 
@@ -14,6 +14,9 @@ public class MetroMendeley {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Ventana2 v2 = new Ventana2();
+        v2.setVisible(true);
+        
         
     }
     
