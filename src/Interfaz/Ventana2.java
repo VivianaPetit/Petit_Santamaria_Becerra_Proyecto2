@@ -85,11 +85,11 @@ public class Ventana2 extends javax.swing.JFrame {
 
         Nodo<String> nombre = nombreArchivos.getFirst();
         String rutaBaseProyecto = System.getProperty("user.dir");
+        System.out.println(rutaBaseProyecto);
         for (int i = 0; i < nombreArchivos.getLenght(); i++) {
             String rutaRelativa = nombre.getValor();
-            String rutaAbsoluta = rutaBaseProyecto + File.separator + rutaRelativa;
-            File archivo = new File(rutaAbsoluta);
-            rutas.insertFinal(archivo.getAbsolutePath());
+            String rutaAbsoluta = rutaBaseProyecto + rutaRelativa;
+            rutas.insertFinal(rutaAbsoluta);
             nombre = nombre.getSiguiente();
         }
     }
