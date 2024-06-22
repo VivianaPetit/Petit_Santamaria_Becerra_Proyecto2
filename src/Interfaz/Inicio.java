@@ -12,7 +12,7 @@ import metromendeley.*;
  *
  * @author VivianaPetit
  */
-public class Ventana2 extends javax.swing.JFrame {
+public class Inicio extends javax.swing.JFrame {
     public static Lista<Resumen> resumenes;
     public static Lista<String> rutas;
     public static HashTable tabla;
@@ -20,11 +20,13 @@ public class Ventana2 extends javax.swing.JFrame {
     /**
      * Creates new form Ventana2
      */
-    public Ventana2() {
+    public Inicio() {
         initComponents();
         resumenes = new Lista<>();
         rutas = new Lista<>();
         tabla = new HashTable();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     public void crearResumenes(String ruta) {
@@ -107,40 +109,61 @@ public class Ventana2 extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        panelRound2 = new Interfaz.PanelRound();
+        panelRound1 = new Interfaz.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("crear tabla hash");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        panelRound2.setBackground(new java.awt.Color(213, 228, 207));
+        panelRound2.setRoundBottomLeft(10);
+        panelRound2.setRoundBottomRight(10);
+        panelRound2.setRoundTopLeft(10);
+        panelRound2.setRoundTopRight(10);
+        panelRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelRound1.setBackground(new java.awt.Color(2, 64, 83));
+        panelRound1.setRoundBottomLeft(10);
+        panelRound1.setRoundBottomRight(10);
+        panelRound1.setRoundTopLeft(10);
+        panelRound1.setRoundTopRight(10);
+        panelRound1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelRound1MousePressed(evt);
             }
         });
+        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(jButton1)
-                .addContainerGap(148, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
-                .addComponent(jButton1)
-                .addContainerGap(143, Short.MAX_VALUE))
-        );
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Iniciar");
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, 30));
+
+        panelRound2.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 100, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/background1.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        panelRound2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 460, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Diseño sin título.png"))); // NOI18N
+        panelRound2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 220, 150, 160));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Diseño sin título.png"))); // NOI18N
+        panelRound2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, -80, 150, 160));
+
+        getContentPane().add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void panelRound1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound1MousePressed
         obtenerRutaArchivos();
         Nodo<String> aux = rutas.getFirst();
         for (int i = 0; i < rutas.getLenght(); i++){
@@ -153,7 +176,11 @@ public class Ventana2 extends javax.swing.JFrame {
             nodoResumen = nodoResumen.getSiguiente();
         }
         tabla.imprimir();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        Menu v2 = new Menu();
+        this.setVisible(false);
+        v2.setVisible(true);
+    }//GEN-LAST:event_panelRound1MousePressed
 
     /**
      * @param args the command line arguments
@@ -172,26 +199,34 @@ public class Ventana2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana2().setVisible(true);
+                new Inicio().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private Interfaz.PanelRound panelRound1;
+    private Interfaz.PanelRound panelRound2;
     // End of variables declaration//GEN-END:variables
 }

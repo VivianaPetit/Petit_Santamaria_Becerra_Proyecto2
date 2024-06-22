@@ -58,7 +58,7 @@ public class Lista<E> {
      public String toString() {
         String cadena = "";
         if (esVacio()) {
-            cadena = cadena + "No hay palabras en el diccionario"; 
+            cadena = cadena + "La lista está vacia."; 
         } else {
             Nodo aux = first;
             while (aux != null) {

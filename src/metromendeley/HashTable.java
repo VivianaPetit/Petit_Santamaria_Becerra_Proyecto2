@@ -15,7 +15,7 @@ public class HashTable {
      * Constructor de la clase HashTable.
      */
     public HashTable() {
-        this.array = new Resumen[10];
+        this.array = new Resumen[11];
     }
     
     /**
@@ -26,7 +26,7 @@ public class HashTable {
     public int generarIndex(String titulo) {
         int hash = 0;
         for (char caracter : titulo.toCharArray()) {
-            hash = 3 * hash + caracter;
+            hash = hash + caracter;
         }
         int index = Math.abs(hash) % array.length;
         return index;
@@ -40,7 +40,7 @@ public class HashTable {
     public int generarIndexAux(String titulo) {
         int hash = 0;
         for (char caracter : titulo.toCharArray()) {
-            hash = hash + caracter;
+            hash = (3 * hash) + caracter;
         }
         int index = Math.abs(hash) % array.length;
         return index;
