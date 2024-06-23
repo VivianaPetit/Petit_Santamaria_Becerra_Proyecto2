@@ -16,6 +16,9 @@ public class Inicio extends javax.swing.JFrame {
     public static Lista<Resumen> resumenes;
     public static Lista<String> rutas;
     public static HashTable tabla;
+    public static Lista<String> palabrasClavesBD; 
+    public static Lista<String> titulos; 
+    Fuentes tipoFuente;
 
     /**
      * Creates new form Ventana2
@@ -25,6 +28,10 @@ public class Inicio extends javax.swing.JFrame {
         resumenes = new Lista<>();
         rutas = new Lista<>();
         tabla = new HashTable();
+        palabrasClavesBD = new Lista<>();
+        titulos = new Lista<>();
+        tipoFuente = new Fuentes();
+        jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
@@ -46,6 +53,7 @@ public class Inicio extends javax.swing.JFrame {
             while((linea = br.readLine()) != null){
                 if (contador == 0){
                     titulo += linea;
+                    titulos.insertFinal(linea);
                     contador ++;
                 }
                 else if (linea.contains("Autores")) {
@@ -59,17 +67,24 @@ public class Inicio extends javax.swing.JFrame {
                     autores.insertFinal(linea);
                 }
                 else if (linea.startsWith("Palabras claves: ")){
-                    palabrasClave += linea.replaceAll("Palabras claves: ", "");
+                    String palabra = linea.replaceAll("Palabras claves: ", "").replaceAll("\\.", "");
+                    palabrasClave += palabra;
+                }
+                else if (linea.startsWith("Palabras Claves: ")){
+                    String palabra = linea.replaceAll("Palabras Claves: ", "").replaceAll("\\.", "");
+                    palabrasClave += palabra;
                 }
             }
             String[] palabrasDivididas = palabrasClave.split(",");
             Lista<String> palabrasClaves = new Lista();
             for (String palabra : palabrasDivididas) {
+                palabrasClavesBD.insertFinal(palabra.trim().toLowerCase());
                 palabrasClaves.insertFinal(palabra);
             }
             resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
 
             resumenes.insertFinal(resumen);
+            
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -87,7 +102,7 @@ public class Inicio extends javax.swing.JFrame {
 
         Nodo<String> nombre = nombreArchivos.getFirst();
         String rutaBaseProyecto = System.getProperty("user.dir");
-        System.out.println(rutaBaseProyecto);
+        
         for (int i = 0; i < nombreArchivos.getLenght(); i++) {
             String rutaRelativa = nombre.getValor();
             String rutaAbsoluta = rutaBaseProyecto + rutaRelativa;
@@ -140,6 +155,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setBackground(new java.awt.Color(213, 228, 207));
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -175,50 +191,12 @@ public class Inicio extends javax.swing.JFrame {
             tabla.insertar(nodoResumen.getValor());
             nodoResumen = nodoResumen.getSiguiente();
         }
-        tabla.imprimir();
         
         Menu v2 = new Menu();
         this.setVisible(false);
         v2.setVisible(true);
     }//GEN-LAST:event_panelRound1MousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

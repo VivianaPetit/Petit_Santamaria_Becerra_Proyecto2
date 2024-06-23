@@ -61,13 +61,32 @@ public class Lista<E> {
             cadena = cadena + "La lista está vacia."; 
         } else {
             Nodo aux = first;
-            while (aux != null) {
-                cadena = cadena + aux.getValor() + "\n";
+            for (int i = 0; i < length; i++) {
+                cadena = cadena + aux.getValor();
+                if (i != length-1){
+                    cadena = cadena + ", ";
+                }
                 aux = aux.getSiguiente();
             }
         }
         return cadena; 
     }
+     
+    /**
+     *
+     * @param valor
+     * @return
+     */
+    public boolean buscar(E valor){
+        boolean encontrado = false;
+        Nodo<E> aux = first; 
+        for (int i = 0; i< length; i++) {
+            if (aux.getValor().equals(valor)){
+                encontrado = true;
+            }
+        }
+        return encontrado; 
+     }
      
     
     /**
