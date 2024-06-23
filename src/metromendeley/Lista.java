@@ -5,6 +5,7 @@
 package metromendeley;
 
 
+
 /**
  *
  * @author VivianaPetit
@@ -60,7 +61,7 @@ public class Lista<E> {
         if (esVacio()) {
             cadena = cadena + "La lista está vacia."; 
         } else {
-            Nodo aux = first;
+            Nodo<E> aux = first;
             for (int i = 0; i < length; i++) {
                 cadena = cadena + aux.getValor();
                 if (i != length-1){
@@ -71,17 +72,32 @@ public class Lista<E> {
         }
         return cadena; 
     }
+    
+    public String toStringAt(int index) {
+        String valor= "";
+        Nodo<E> aux = first;
+        for (int i =0; i< length; i++) {
+            if (i == index) {
+                valor = (String) aux.getValor();
+            }
+            aux = aux.getSiguiente();
+        } 
+        valor = valor.toLowerCase().trim();
+        return valor;
+        
+    }
      
     /**
      *
      * @param valor
      * @return
      */
-    public boolean buscar(E valor){
+    public boolean contains(E valor){
         boolean encontrado = false;
-        Nodo<E> aux = first; 
+        String aux;
         for (int i = 0; i< length; i++) {
-            if (aux.getValor().equals(valor)){
+            aux = this.toStringAt(i);
+            if (aux.equals(valor)){
                 encontrado = true;
             }
         }

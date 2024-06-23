@@ -36,14 +36,13 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         Lista<Resumen> resumscoincidentes = new Lista<>();
         for (int i=0; i<Inicio.titulos.getLenght(); i++) {
             index = Inicio.tabla.generarIndex(tituloAux.getValor());
-            if (Inicio.tabla.isResumenAt(index)) {
-                resumen = Inicio.tabla.getResumenAt(index);
-                if (resumen.getCuerpo().toLowerCase().contains(palabra.toLowerCase())){
-                    resumscoincidentes.insertFinal(resumen);
-                }
+            resumen = Inicio.tabla.getResumenAt(index);
+            if (resumen.getPalabras_clave().contains(palabra.toLowerCase().trim())) {
+                resumscoincidentes.insertFinal(resumen);     
             } 
             tituloAux = tituloAux.getSiguiente(); 
         }
+        System.out.println(palabra.toLowerCase().trim());
         return resumscoincidentes;
     }
  
@@ -233,18 +232,18 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
         String palabra = input.getText();
-        if (!palabra.equals("")){
-           modelo.removeAllElements();
-        Lista<Resumen> resumenes = buscarPorPalabraClave(palabra);
-        if (!resumenes.esVacio()){
-            Nodo<Resumen> aux = resumenes.getFirst();
-            for (int i=0; i<resumenes.getLenght(); i++){
-                modelo.addElement(aux.getValor().getTitulo());
-                aux = aux.getSiguiente();
-            } 
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontraron documentos coincidentes.");
-            } 
+        if (!palabra.equals("") && !palabra.equals(" ")){
+            modelo.removeAllElements();
+            Lista<Resumen> resumenes = buscarPorPalabraClave(palabra);
+            if (!resumenes.esVacio()){
+                Nodo<Resumen> aux = resumenes.getFirst();
+                for (int i=0; i<resumenes.getLenght(); i++){
+                    modelo.addElement(aux.getValor().getTitulo());
+                    aux = aux.getSiguiente();
+                } 
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron documentos coincidentes.");
+                } 
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese una palabra.");
         }
