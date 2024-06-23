@@ -4,6 +4,7 @@
  */
 package metromendeley;
 
+
 /**
  *
  * @author VivianaPetit
@@ -19,6 +20,30 @@ public class Resumen {
         this.autores = autores;
         this.cuerpo = cuerpo;
         this.palabras_clave = palabras_clave;
+    }
+    
+    public Resumen(){
+        
+    }
+    
+    @Override
+    public String toString(){
+        String cadena = "";
+        cadena += titulo + "\n";
+        cadena += "Autores \n" + autores.toString() + "\n";
+        String[] cuerpoDividido = cuerpo.split(" ");
+        int contador = 1;
+        cadena += "\n Resumen \n";
+        for (String cuerpoDividido1 : cuerpoDividido) {
+            cadena += cuerpoDividido1 + " ";
+            if (contador % 18 == 0) {
+                cadena += "\n";
+            }
+            contador++;
+        }
+        cadena += "\n";
+        cadena += "\n Palabras clave: " + palabras_clave;
+        return cadena;
     }
 
     public String getTitulo() {

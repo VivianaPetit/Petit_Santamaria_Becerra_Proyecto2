@@ -12,7 +12,7 @@ import java.io.InputStream;
  */
 public class Fuentes {
     private Font font = null;
-    public String nombre = "";
+    public String nombre = "BebasNeue-Regular.ttf";
     
 
     /* Font.PLAIN = 0 , Font.BOLD = 1 , Font.ITALIC = 2
