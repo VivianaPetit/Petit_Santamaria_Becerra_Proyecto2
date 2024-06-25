@@ -31,7 +31,41 @@ public class HashTable {
         int index = Math.abs(hash) % array.length;
         return index;
     }
-    
+    public Lista<String> obtenerTitulosOrdenados() {
+        Lista<String> titulos = new Lista<>();
+        for (Resumen resumen : this.array) {
+            if (resumen != null) {
+                titulos.insertFinal(resumen.getTitulo());
+            }
+        }
+        titulos = ordenarLista(titulos);
+        return titulos;
+    }
+
+    private Lista<String> ordenarLista(Lista<String> lista) {
+        String[] arr = new String[lista.getLenght()];
+        Nodo<String> current = lista.getFirst();
+        int index = 0;
+        while (current != null) {
+            arr[index++] = current.getValor();
+            current = current.getSiguiente();
+        }
+        // Ordenamiento burbuja
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j].compareTo(arr[j + 1]) > 0) {
+                    String temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        Lista<String> sortedList = new Lista<>();
+        for (String titulo : arr) {
+            sortedList.insertFinal(titulo);
+        }
+        return sortedList;
+    }
     /**
      *
      * @param titulo
@@ -88,6 +122,8 @@ public class HashTable {
         return encontrado;
     }
 
+    
+    
     public Resumen[] getArray() {
         return array;
     }

@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interfaz;
+package metromendeley;
+
+import Interfaz.BuscarPalabraClave;
+import Interfaz.AnalizarResumeness;
 
 /**
  *
@@ -85,12 +88,22 @@ public class Menu extends javax.swing.JFrame {
         panelRound3.setRoundBottomRight(10);
         panelRound3.setRoundTopLeft(10);
         panelRound3.setRoundTopRight(10);
+        panelRound3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelRound3MousePressed(evt);
+            }
+        });
         panelRound3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono lupa (2).png"))); // NOI18N
         jLabel4.setText("Analizar Resumen");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel4MousePressed(evt);
+            }
+        });
         panelRound3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, -1));
 
         panelRound2.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 250, 40));
@@ -143,7 +156,23 @@ public class Menu extends javax.swing.JFrame {
         BuscarPalabraClave v3 = new BuscarPalabraClave();
         this.setVisible(false);
         v3.setVisible(true);
+        this.setLocationRelativeTo(null);
     }//GEN-LAST:event_panelRound1MousePressed
+
+    private void panelRound3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MousePressed
+        // TODO add your handling code here:
+        HashTable tabla = new HashTable();
+
+        AnalizarResumeness p = new AnalizarResumeness();
+        this.setVisible(false);
+        p.setVisible(true);
+        this.setLocationRelativeTo(null);
+
+    }//GEN-LAST:event_panelRound3MousePressed
+
+    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel4MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
