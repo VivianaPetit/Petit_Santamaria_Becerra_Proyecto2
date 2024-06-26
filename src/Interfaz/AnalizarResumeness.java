@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import metromendeley.Menu;
 import metromendeley.Resumen;
 import javax.swing.*;
+//import metromendeley.HashTable;
 import metromendeley.Lista;
 //import metromendeley.Lista;
 import metromendeley.Nodo;
@@ -137,7 +138,7 @@ public class AnalizarResumeness extends javax.swing.JFrame {
 
         // Mostrar los resultados
         String cadena = "";
-        cadena += rsm.getTitulo() + "\n" + "Autores: "+rsm.getAutores().toString() + "\n\n";
+        cadena += rsm.getTitulo() + "\n" + "Autores: " + rsm.getAutores().toString() + "\n\n";
 
         for (int i = 0; i < keywords.length; i++) {
             cadena += capitalize(keywords[i]) + " : " + keywordCounts[i] + " veces. \n";
@@ -177,16 +178,51 @@ public class AnalizarResumeness extends javax.swing.JFrame {
         }
         return frecuencia;
     }*/
-    public void Cargar_TitulosResumenes() {
+    /*public void Cargar_TitulosResumenes() {
         DefaultListModel<String> listModel = new DefaultListModel<>();
+
         Nodo<String> nodoTitulo = titulos.getFirst();
         for (int i = 0; i < titulos.getLenght(); i++) {
+            listModel.addElement(nodoTitulo.getValor());//agrego
+            nodoTitulo = nodoTitulo.getSiguiente();//se mueve
+
+        }
+        jList2.setModel(listModel);
+    }*/
+
+    public void Cargar_TitulosResumenes3() {
+        Lista lista = new Lista();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+
+        
+        Lista<String> titulosOrdenados = lista.obtenerTitulosOrdenados(titulos);
+
+        Nodo<String> nodoTitulo = titulosOrdenados.getFirst();
+        while (nodoTitulo != null) {
             listModel.addElement(nodoTitulo.getValor());
             nodoTitulo = nodoTitulo.getSiguiente();
         }
         jList2.setModel(listModel);
     }
 
+    /*
+    public void Cargar_TitulosResumenes2() {
+        HashTable hashtable=new HashTable();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        Nodo<String> nodoTitulo = titulos.getFirst();
+        for (int i = 0; i < titulos.getLenght(); i++) {
+            Lista<String> Listatitulosordenados=hashtable.obtenerTitulosOrdenados(nodoTitulo.getValor());
+            Nodo<String> nodoTitulos=Listatitulosordenados.getFirst();
+            
+            for(int j=0;j<Listatitulosordenados.getLenght();j++){
+                listModel.addElement(nodoTitulos.getValor());
+                nodoTitulos=nodoTitulos.getSiguiente();
+            }
+            
+            nodoTitulo = nodoTitulo.getSiguiente();
+        }
+        jList2.setModel(listModel);
+    }*/
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -213,13 +249,12 @@ public class AnalizarResumeness extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Cargar_TitulosResumenes();
+        Cargar_TitulosResumenes3();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
