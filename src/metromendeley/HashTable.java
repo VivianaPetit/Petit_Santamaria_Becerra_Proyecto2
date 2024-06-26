@@ -70,13 +70,22 @@ public class HashTable {
         } 
     }
     
-    public Resumen getResumenPorTitulo(String titulo){
+    public Resumen getResumen(String titulo){
         int index = generarIndex(titulo);
         Resumen resumen = getResumenAt(index);
         return resumen;
     }
+    
     public Resumen getResumenAt(int index){
         return array[index];
+    }
+    
+    public boolean isResumenAt(int index){
+        boolean encontrado = false; 
+        if (array[index] != null){
+            encontrado = true;
+        }
+        return encontrado;
     }
 
     public Resumen[] getArray() {
