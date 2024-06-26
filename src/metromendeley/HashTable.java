@@ -9,6 +9,7 @@ package metromendeley;
  * @author VivianaPetit
  */
 public class HashTable {
+    
     private Resumen array[];
 
     /**
@@ -130,5 +131,16 @@ public class HashTable {
 
     public void setArray(Resumen[] array) {
         this.array = array;
+    }
+    
+    // Método: Busca resúmenes por autor.
+    public Lista<Resumen> buscarPorAutor(String autor) {
+        Lista<Resumen> listaResum = new Lista<>();
+        for (Resumen resumen : array) {
+            if (resumen != null && resumen.tieneAutor(autor)) {
+                listaResum.insertFinal(resumen);
+            }
+        }
+        return listaResum;
     }
 }
