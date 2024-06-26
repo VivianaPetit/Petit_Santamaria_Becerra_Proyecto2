@@ -100,6 +100,11 @@ public class Menu extends javax.swing.JFrame {
         panelRound4.setRoundBottomRight(10);
         panelRound4.setRoundTopLeft(10);
         panelRound4.setRoundTopRight(10);
+        panelRound4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelRound4MousePressed(evt);
+            }
+        });
         panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
@@ -144,6 +149,12 @@ public class Menu extends javax.swing.JFrame {
         this.setVisible(false);
         v3.setVisible(true);
     }//GEN-LAST:event_panelRound1MousePressed
+
+    private void panelRound4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound4MousePressed
+        BuscarPorAutor v1 = new BuscarPorAutor();
+        this.setVisible(false);
+        v1.setVisible(true);
+    }//GEN-LAST:event_panelRound4MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,21 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
+
 import java.io.*;
 import javax.swing.JOptionPane;
 import metromendeley.*;
-
 
 /**
  *
  * @author VivianaPetit
  */
 public class Inicio extends javax.swing.JFrame {
+
     public static Lista<Resumen> resumenes;
     public static Lista<String> rutas;
     public static HashTable tabla;
-    public static Lista<String> palabrasClavesBD; 
-    public static Lista<String> titulos; 
+    public static Lista<String> palabrasClavesBD;
+    public static Lista<String> titulos;
+    public static Lista<String> autores;
     Fuentes tipoFuente;
 
     /**
@@ -30,6 +32,7 @@ public class Inicio extends javax.swing.JFrame {
         tabla = new HashTable();
         palabrasClavesBD = new Lista<>();
         titulos = new Lista<>();
+        autores = new Lista<>();
         tipoFuente = new Fuentes();
         jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
@@ -43,56 +46,76 @@ public class Inicio extends javax.swing.JFrame {
 
             Resumen resumen;
             String titulo = "";
-            Lista<String> autores = new Lista<>();
+            Lista<String> autoresDelResumen = new Lista<>(); // Lista local de autores LS
             String cuerpo = "";
             String palabrasClave = "";
             String linea;
 
             boolean aux = false;
             int contador = 0;
-            while((linea = br.readLine()) != null){
-                if (contador == 0){
+            while ((linea = br.readLine()) != null) {
+                if (contador == 0) {
                     titulo += linea;
                     titulos.insertFinal(linea);
-                    contador ++;
-                }
-                else if (linea.contains("Autores")) {
+                    contador++;
+                } else if (linea.contains("Autores")) {
                     aux = true;
-                }
-                else if (linea.contains("Resumen")){
+                } else if (linea.contains("Resumen")) {
                     cuerpo += br.readLine();
                     aux = false;
-                }
-                else if (aux) {
-                    autores.insertFinal(linea);
-                }
-                else if (linea.startsWith("Palabras claves: ")){
+                } else if (aux) {
+                    autoresDelResumen.insertFinal(linea);
+                } else if (linea.startsWith("Palabras claves: ")) {
                     String palabra = linea.replaceAll("Palabras claves: ", "").replaceAll("\\.", "");
                     palabrasClave += palabra;
-                }
-                else if (linea.startsWith("Palabras Claves: ")){
+                } else if (linea.startsWith("Palabras Claves: ")) {
                     String palabra = linea.replaceAll("Palabras Claves: ", "").replaceAll("\\.", "");
                     palabrasClave += palabra;
                 }
             }
+
             String[] palabrasDivididas = palabrasClave.split(",");
             Lista<String> palabrasClaves = new Lista();
             for (String palabra : palabrasDivididas) {
                 palabrasClavesBD.insertFinal(palabra.trim().toLowerCase());
                 palabrasClaves.insertFinal(palabra);
             }
-            resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
+
+            // Verificación y agregado de autores únicos a la lista global
+            Nodo<String> nodoAutor = autoresDelResumen.getFirst();
+            while (nodoAutor != null) {
+                String autor = nodoAutor.getValor();
+                boolean encontrado = false;
+
+                // Recorremos la lista global para verificar existencia manualmente
+                Nodo<String> nodoGlobal = autores.getFirst();
+                while (nodoGlobal != null) {
+                    if (nodoGlobal.getValor().equals(autor)) {
+                        encontrado = true;
+                        break; // Si encontramos el autor, no necesitamos seguir buscando
+                    }
+                    nodoGlobal = nodoGlobal.getSiguiente();
+                }
+
+                // Si no se encontró el autor en la lista global, lo agregamos
+                if (!encontrado) {
+                    autores.insertFinal(autor); // Agregar el autor a la lista global
+                }
+
+                nodoAutor = nodoAutor.getSiguiente();
+            }
+
+            resumen = new Resumen(titulo, autoresDelResumen, cuerpo, palabrasClaves);
 
             resumenes.insertFinal(resumen);
-            
-        }
-        catch (Exception e) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
     }
 
-    public void obtenerRutaArchivos(){
+    public void obtenerRutaArchivos() {
         Lista<String> nombreArchivos = new Lista<>();
 
         nombreArchivos.insertFinal("\\src\\Resumenes\\resumen1.txt");
@@ -102,7 +125,7 @@ public class Inicio extends javax.swing.JFrame {
 
         Nodo<String> nombre = nombreArchivos.getFirst();
         String rutaBaseProyecto = System.getProperty("user.dir");
-        
+
         for (int i = 0; i < nombreArchivos.getLenght(); i++) {
             String rutaRelativa = nombre.getValor();
             String rutaAbsoluta = rutaBaseProyecto + rutaRelativa;
@@ -110,9 +133,6 @@ public class Inicio extends javax.swing.JFrame {
             nombre = nombre.getSiguiente();
         }
     }
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -182,16 +202,23 @@ public class Inicio extends javax.swing.JFrame {
     private void panelRound1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound1MousePressed
         obtenerRutaArchivos();
         Nodo<String> aux = rutas.getFirst();
-        for (int i = 0; i < rutas.getLenght(); i++){
+        for (int i = 0; i < rutas.getLenght(); i++) {
             crearResumenes(aux.getValor());
             aux = aux.getSiguiente();
         }
         Nodo<Resumen> nodoResumen = resumenes.getFirst();
-        for (int i = 0; i<resumenes.getLenght(); i++) {
+        for (int i = 0; i < resumenes.getLenght(); i++) {
             tabla.insertar(nodoResumen.getValor());
             nodoResumen = nodoResumen.getSiguiente();
         }
-        
+
+        //verificar si los autores se cargaron correctamente LS
+        Nodo<String> nodoAutor = autores.getFirst();
+        while (nodoAutor != null) {
+            System.out.println(nodoAutor.getValor());
+            nodoAutor = nodoAutor.getSiguiente();
+        }
+
         Menu v2 = new Menu();
         this.setVisible(false);
         v2.setVisible(true);
