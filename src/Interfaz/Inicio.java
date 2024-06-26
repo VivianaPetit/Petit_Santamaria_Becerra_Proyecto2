@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
-import metromendeley.Menu;
+
 import java.io.*;
 import javax.swing.JOptionPane;
 import metromendeley.*;
@@ -14,11 +14,13 @@ import metromendeley.*;
  * @author VivianaPetit
  */
 public class Inicio extends javax.swing.JFrame {
+    
     public static Lista<Resumen> resumenes;
     public static Lista<String> rutas;
     public static HashTable tabla;
     public static Lista<String> palabrasClavesBD; 
     public static Lista<String> titulos; 
+    public static Lista<String> autores;
     Fuentes tipoFuente;
 
     /**
@@ -31,6 +33,7 @@ public class Inicio extends javax.swing.JFrame {
         tabla = new HashTable();
         palabrasClavesBD = new Lista<>();
         titulos = new Lista<>();
+        autores = new Lista<>();
         tipoFuente = new Fuentes();
         jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
@@ -44,7 +47,7 @@ public class Inicio extends javax.swing.JFrame {
 
             Resumen resumen;
             String titulo = "";
-            Lista<String> autores = new Lista<>();
+            Lista<String> autoresDelResumen = new Lista<>(); // Lista local de autores LS
             String cuerpo = "";
             String palabrasClave = "";
             String linea;
@@ -65,7 +68,7 @@ public class Inicio extends javax.swing.JFrame {
                     aux = false;
                 }
                 else if (aux) {
-                    autores.insertFinal(linea);
+                    autoresDelResumen.insertFinal(linea);
                 }
                 else if (linea.startsWith("Palabras claves: ")){
                     String palabra = linea.replaceAll("Palabras claves: ", "").replaceAll("\\.", "");
@@ -82,6 +85,31 @@ public class Inicio extends javax.swing.JFrame {
                 palabrasClavesBD.insertFinal(palabra.trim().toLowerCase());
                 palabrasClaves.insertFinal(palabra);
             }
+            
+            // Verificación y agregado de autores únicos a la lista global
+            Nodo<String> nodoAutor = autoresDelResumen.getFirst();
+            while (nodoAutor != null) {
+                String autor = nodoAutor.getValor();
+                boolean encontrado = false;
+
+                // Recorremos la lista global para verificar existencia manualmente
+                Nodo<String> nodoGlobal = autores.getFirst();
+                while (nodoGlobal != null) {
+                    if (nodoGlobal.getValor().equals(autor)) {
+                        encontrado = true;
+                        break; // Si encontramos el autor, no necesitamos seguir buscando
+                    }
+                    nodoGlobal = nodoGlobal.getSiguiente();
+                }
+
+                // Si no se encontró el autor en la lista global, lo agregamos
+                if (!encontrado) {
+                    autores.insertFinal(autor); // Agregar el autor a la lista global
+                }
+
+                nodoAutor = nodoAutor.getSiguiente();
+            }
+            
             resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
 
             resumenes.insertFinal(resumen);
@@ -191,6 +219,13 @@ public class Inicio extends javax.swing.JFrame {
         for (int i = 0; i<resumenes.getLenght(); i++) {
             tabla.insertar(nodoResumen.getValor());
             nodoResumen = nodoResumen.getSiguiente();
+        }
+        
+        //verificar si los autores se cargaron correctamente LS
+        Nodo<String> nodoAutor = autores.getFirst();
+        while (nodoAutor != null) {
+            System.out.println(nodoAutor.getValor());
+            nodoAutor = nodoAutor.getSiguiente();
         }
         
         Menu v2 = new Menu();

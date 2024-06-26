@@ -103,6 +103,17 @@ public class Lista<E> {
         }
         return encontrado; 
      }
+    
+    public boolean existe(E valor) { // LS
+        Nodo<E> actual = first;
+        while (actual != null) {
+            if (actual.getValor().equals(valor)) {
+                return true; // Si encuentra el valor, devuelve true
+            }
+            actual = actual.getSiguiente();
+        }
+        return false; // Si no encuentra el valor, devuelve false
+    }
      
     
     /**
