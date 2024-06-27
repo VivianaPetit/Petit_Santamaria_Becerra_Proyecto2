@@ -10,6 +10,7 @@ package metromendeley;
  * @author VivianaPetit
  */
 public class Resumen {
+    
     private String titulo;
     private Lista<String> autores;
     private String cuerpo;
@@ -76,6 +77,18 @@ public class Resumen {
 
     public void setPalabras_clave(Lista<String> palabras_clave) {
         this.palabras_clave = palabras_clave;
+    }
+    
+    // Método para verificar si un autor específico está en la lista de autores
+    public boolean tieneAutor(String autor) {
+        Nodo<String> autorActual = autores.getFirst();
+        while (autorActual != null) {
+            if (autorActual.getValor().equals(autor)) {
+                return true;
+            }
+            autorActual = autorActual.getSiguiente();
+        }
+        return false;
     }
     
     

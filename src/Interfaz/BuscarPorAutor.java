@@ -16,23 +16,32 @@ import metromendeley.*;
  */
 public class BuscarPorAutor extends javax.swing.JFrame {
 
+    private HashTable hashTable;
     DefaultListModel<String> modelo;
     Fuentes tipoFuente;
 
-    /**
-     * Creates new form Ventana4
-     */
     public BuscarPorAutor() {
         initComponents();
-        modelo = new DefaultListModel();
+        // Inicializa la tabla hash
+        hashTable = new HashTable();
+        
+        // Inicializa el modelo de la lista
+        modelo = new DefaultListModel<>();
         jList2.setModel(modelo);
+        
+        // Establece las fuentes
         tipoFuente = new Fuentes();
         jLabel4.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 19));
         jLabel7.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 16));
         jLabel8.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 18));
+        
+        // Ajustes de la ventana
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        
+        // Carga los autores y los resúmenes
         cargarAutores();
+        cargarResúmenesEnHashTable();
     }
 
     private void cargarAutores() {
@@ -44,28 +53,12 @@ public class BuscarPorAutor extends javax.swing.JFrame {
             autorAux = autorAux.getSiguiente(); // Avanzamos al siguiente autor
         }
     }
-
-    public Lista<Resumen> buscarPorAutor(String autor) {
-        Lista<Resumen> resumenesDelAutor = new Lista<>();
-
-        Nodo<Resumen> nodoResumen = Inicio.resumenes.getFirst(); // Accedemos a la lista global de resúmenes
-        while (nodoResumen != null) {
-            Resumen resumen = nodoResumen.getValor();
-
-            Lista<String> autoresResumen = resumen.getAutores();
-            Nodo<String> nodoAutor = autoresResumen.getFirst();
-            while (nodoAutor != null) {
-                if (nodoAutor.getValor().equalsIgnoreCase(autor)) {
-                    resumenesDelAutor.insertFinal(resumen);
-                    break; // Si encuentra el autor en el resumen, no es necesario seguir buscando
-                }
-                nodoAutor = nodoAutor.getSiguiente();
-            }
-
-            nodoResumen = nodoResumen.getSiguiente();
+    private void cargarResúmenesEnHashTable() {
+        Nodo<Resumen> resumenAux = Inicio.resumenes.getFirst(); // Suponiendo que Inicio.resumenes contiene los resúmenes
+        for (int i = 0; i < Inicio.resumenes.getLenght(); i++) {
+            hashTable.insertar(resumenAux.getValor()); // Inserta cada resumen en la tabla hash
+            resumenAux = resumenAux.getSiguiente();
         }
-
-        return resumenesDelAutor;
     }
 
     /**
@@ -229,7 +222,7 @@ public class BuscarPorAutor extends javax.swing.JFrame {
     private void AutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoresActionPerformed
         String autor = (String) Autores.getSelectedItem();
         if (autor != null) {
-            Lista<Resumen> listaResum = buscarPorAutor(autor);
+            Lista<Resumen> listaResum = hashTable.buscarPorAutor(autor);
             modelo.removeAllElements();
             Nodo<Resumen> resumenAux = listaResum.getFirst();
             while (resumenAux != null) {
