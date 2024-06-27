@@ -4,10 +4,7 @@
  */
 package Interfaz;
 
-//import static Interfaz.Inicio.palabrasClavesBD;
-//import static Interfaz.Inicio.resumenes;
-//import static Interfaz.Inicio.rutas;
-//import static Interfaz.Inicio.tabla;
+
 import static Interfaz.Inicio.titulos;
 //import java.io.BufferedReader;
 //import java.io.FileReader;
