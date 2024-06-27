@@ -9,11 +9,6 @@ package metromendeley;
  * @author VivianaPetit
  */
 public class HashTable {
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 682add1ad6d28b7b9903038353e09dbf4f33639d
     private Resumen array[];
 
     /**
@@ -68,8 +63,7 @@ public class HashTable {
     }
     return sortedList;
 }
-
-
+    
     /**
      *
      * @param titulo
