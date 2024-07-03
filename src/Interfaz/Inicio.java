@@ -5,6 +5,9 @@
 package Interfaz;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import metromendeley.*;
 
@@ -15,39 +18,40 @@ import metromendeley.*;
  */
 public class Inicio extends javax.swing.JFrame {
     
-    public static Lista<Resumen> resumenes;
+
     public static Lista<String> rutas;
     public static HashTable tabla;
     public static Lista<String> palabrasClavesBD; 
     public static Lista<String> titulos; 
-    public static Lista<String> autores;
+    public static Lista<String> autoresBD;
     Fuentes tipoFuente;
+    public static String rutaBaseProyecto;
 
     /**
      * Creates new form Ventana2
      */
     public Inicio() {
         initComponents();
-        resumenes = new Lista<>();
         rutas = new Lista<>();
         tabla = new HashTable();
         palabrasClavesBD = new Lista<>();
         titulos = new Lista<>();
-        autores = new Lista<>();
+        autoresBD = new Lista<>();
         tipoFuente = new Fuentes();
+        rutaBaseProyecto = System.getProperty("user.dir");
         jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
 
-    public void crearResumenes(String ruta) {
+    public static boolean crearResumenes(String ruta) {
         try {
             FileReader fr = new FileReader(ruta);
             BufferedReader br = new BufferedReader(fr);
 
             Resumen resumen;
             String titulo = "";
-            Lista<String> autoresDelResumen = new Lista<>(); // Lista local de autores LS
+            Lista<String> autores = new Lista<>(); // Lista local de autores LS
             String cuerpo = "";
             String palabrasClave = "";
             String linea;
@@ -57,7 +61,9 @@ public class Inicio extends javax.swing.JFrame {
             while((linea = br.readLine()) != null){
                 if (contador == 0){
                     titulo += linea;
-                    titulos.insertFinal(linea);
+                    if (!(titulos.existe(linea.trim()))){
+                        titulos.insertFinal(linea.trim());
+                    } 
                     contador ++;
                 }
                 else if (linea.contains("Autores")) {
@@ -68,14 +74,17 @@ public class Inicio extends javax.swing.JFrame {
                     aux = false;
                 }
                 else if (aux) {
-                    autoresDelResumen.insertFinal(linea);
+                    autores.insertFinal(linea);
+                    if (!(autoresBD.existe(linea.trim()))){
+                        autoresBD.insertFinal(linea.trim());
+                    } 
                 }
-                else if (linea.startsWith("Palabras claves: ")){
-                    String palabra = linea.replaceAll("Palabras claves: ", "").replaceAll("\\.", "");
+                else if (linea.toLowerCase().startsWith("palabras claves: ")){
+                    String palabra = linea.toLowerCase().replaceAll("palabras claves: ", "").replaceAll("\\.", "");
                     palabrasClave += palabra;
                 }
-                else if (linea.startsWith("Palabras Claves: ")){
-                    String palabra = linea.replaceAll("Palabras Claves: ", "").replaceAll("\\.", "");
+                else if (linea.toLowerCase().startsWith("palabras clave: ")){
+                    String palabra = linea.toLowerCase().replaceAll("palabras clave: ", "").replaceAll("\\.", "");
                     palabrasClave += palabra;
                 }
             }
@@ -85,63 +94,20 @@ public class Inicio extends javax.swing.JFrame {
                 palabrasClavesBD.insertFinal(palabra.trim().toLowerCase());
                 palabrasClaves.insertFinal(palabra);
             }
-            
-            // Verificación y agregado de autores únicos a la lista global
-            Nodo<String> nodoAutor = autoresDelResumen.getFirst();
-            while (nodoAutor != null) {
-                String autor = nodoAutor.getValor();
-                boolean encontrado = false;
-
-                // Recorremos la lista global para verificar existencia manualmente
-                Nodo<String> nodoGlobal = autores.getFirst();
-                while (nodoGlobal != null) {
-                    if (nodoGlobal.getValor().equals(autor)) {
-                        encontrado = true;
-                        break; // Si encontramos el autor, no necesitamos seguir buscando
-                    }
-                    nodoGlobal = nodoGlobal.getSiguiente();
-                }
-
-                // Si no se encontró el autor en la lista global, lo agregamos
-                if (!encontrado) {
-                    autores.insertFinal(autor); // Agregar el autor a la lista global
-                }
-
-                nodoAutor = nodoAutor.getSiguiente();
+            if (!(cuerpo.equals(""))) {
+                resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
+                // Se guardan los resumenes en el hashtable. 
+                tabla.insertar(resumen);
+                return true; 
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento no válido.");
             }
-            
-            resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
-
-            resumenes.insertFinal(resumen);
-            
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            
         }
-
+        return false; 
     }
-
-    public void obtenerRutaArchivos(){
-        Lista<String> nombreArchivos = new Lista<>();
-
-        nombreArchivos.insertFinal("\\src\\Resumenes\\resumen1.txt");
-        nombreArchivos.insertFinal("\\src\\Resumenes\\resumen2.txt");
-        nombreArchivos.insertFinal("\\src\\Resumenes\\resumen3.txt");
-        nombreArchivos.insertFinal("\\src\\Resumenes\\resumen4.txt");
-
-        Nodo<String> nombre = nombreArchivos.getFirst();
-        String rutaBaseProyecto = System.getProperty("user.dir");
-        
-        for (int i = 0; i < nombreArchivos.getLenght(); i++) {
-            String rutaRelativa = nombre.getValor();
-            String rutaAbsoluta = rutaBaseProyecto + rutaRelativa;
-            rutas.insertFinal(rutaAbsoluta);
-            nombre = nombre.getSiguiente();
-        }
-    }
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -209,23 +175,18 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelRound1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound1MousePressed
-        obtenerRutaArchivos();
-        Nodo<String> aux = rutas.getFirst();
-        for (int i = 0; i < rutas.getLenght(); i++){
-            crearResumenes(aux.getValor());
-            aux = aux.getSiguiente();
-        }
-        Nodo<Resumen> nodoResumen = resumenes.getFirst();
-        for (int i = 0; i<resumenes.getLenght(); i++) {
-            tabla.insertar(nodoResumen.getValor());
-            nodoResumen = nodoResumen.getSiguiente();
-        }
-        
-        //verificar si los autores se cargaron correctamente LS
-        Nodo<String> nodoAutor = autores.getFirst();
-        while (nodoAutor != null) {
-            System.out.println(nodoAutor.getValor());
-            nodoAutor = nodoAutor.getSiguiente();
+        try {
+            // Obtener la ruta del package "Resumenes".
+            Path directorioResumenes = Paths.get(rutaBaseProyecto, "src", "Resumenes");
+
+            // Recorrer los archivos del package y obtener sus rutas absolutas.
+            for (Path archivo : Files.newDirectoryStream(directorioResumenes)) {
+                String rutaAbsoluta = archivo.toAbsolutePath().toString();
+                crearResumenes(rutaAbsoluta);
+                System.out.println(rutaAbsoluta);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
         
         Menu v2 = new Menu();

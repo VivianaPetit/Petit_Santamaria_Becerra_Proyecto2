@@ -6,7 +6,7 @@ package metromendeley;
 import Interfaz.*;
 /**
  *
- * @author VivianaPetit
+ * @author VivianaPetit, KelvinBecerra, LuisSantamaria.
  */
 public class MetroMendeley {
 
