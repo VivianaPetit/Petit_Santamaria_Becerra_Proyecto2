@@ -4,6 +4,9 @@
  */
 package metromendeley;
 
+import Interfaz.Inicio;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author VivianaPetit
@@ -15,7 +18,7 @@ public class HashTable {
      * Constructor de la clase HashTable.
      */
     public HashTable() {
-        this.array = new Resumen[11];
+        this.array = new Resumen[100];
     }
 
     /**
@@ -31,39 +34,7 @@ public class HashTable {
         int index = Math.abs(hash) % array.length;
         return index;
     }
-
-    public Lista<String> obtenerTitulosOrdenados(String titulo) {
-    Lista<String> titulos = new Lista<>();
-    titulos.insertFinal(titulo);
-    titulos = ordenarLista(titulos);
-    return titulos;
-}
-
-    private Lista<String> ordenarLista(Lista<String> lista) {
-    String[] arr = new String[lista.getLenght()];
-    Nodo<String> current = lista.getFirst();
-    int index = 0;
-    while (current != null) {
-        arr[index++] = current.getValor();
-        current = current.getSiguiente();
-    }
-    // Ordenamiento burbuja
-    for (int i = 0; i < arr.length - 1; i++) {
-        for (int j = 0; j < arr.length - 1 - i; j++) {
-            if (arr[j].compareTo(arr[j + 1]) > 0) {
-                String temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-    Lista<String> sortedList = new Lista<>();
-    for (String titulo : arr) {
-        sortedList.insertFinal(titulo);
-    }
-    return sortedList;
-}
-    
+   
     /**
      *
      * @param titulo
@@ -88,7 +59,7 @@ public class HashTable {
                 index = generarIndexAux(resumen.getTitulo());
                 this.array[index] = resumen;
             } else {
-                System.out.println("El resumen " + '"' + resumen.getTitulo() + '"' + " ya se encuentra en el sistema.");
+                JOptionPane.showMessageDialog(null, "El resumen " + '"' + resumen.getTitulo() + '"' + " ya se encuentra en el sistema.");
             }
         }
 
@@ -138,4 +109,21 @@ public class HashTable {
         }
         return listaResum;
     }
+    
+     public Lista<Resumen> buscarPorPalabraClave(String palabra){
+        Nodo<String> tituloAux = Inicio.titulos.getFirst();
+        int index; 
+        Resumen resumen;
+        Lista<Resumen> resumscoincidentes = new Lista<>();
+        for (int i=0; i<Inicio.titulos.getLenght(); i++) {
+            index = Inicio.tabla.generarIndex(tituloAux.getValor());
+            resumen = Inicio.tabla.getResumenAt(index);
+            if (resumen.getPalabras_clave().contains(palabra.toLowerCase().trim())) {
+                resumscoincidentes.insertFinal(resumen);     
+            } 
+            tituloAux = tituloAux.getSiguiente(); 
+        }
+        return resumscoincidentes;
+    }
+   
 }

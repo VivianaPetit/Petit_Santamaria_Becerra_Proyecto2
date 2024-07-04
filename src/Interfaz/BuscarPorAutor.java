@@ -4,11 +4,10 @@
  */
 package Interfaz;
 
-import Interfaz.Fuentes;
-import Interfaz.Inicio;
-import Interfaz.Menu;
+
 import javax.swing.*;
 import metromendeley.*;
+
 
 /**
  *
@@ -16,14 +15,11 @@ import metromendeley.*;
  */
 public class BuscarPorAutor extends javax.swing.JFrame {
 
-    private HashTable hashTable;
     DefaultListModel<String> modelo;
     Fuentes tipoFuente;
 
     public BuscarPorAutor() {
         initComponents();
-        // Inicializa la tabla hash
-        hashTable = new HashTable();
         
         // Inicializa el modelo de la lista
         modelo = new DefaultListModel<>();
@@ -34,30 +30,20 @@ public class BuscarPorAutor extends javax.swing.JFrame {
         jLabel4.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 19));
         jLabel7.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 16));
         jLabel8.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 18));
-        
-        // Ajustes de la ventana
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        // Carga los autores y los resúmenes
+        // Carga los autores.
         cargarAutores();
-        cargarResúmenesEnHashTable();
     }
 
     private void cargarAutores() {
         Autores.removeAllItems(); // Limpiamos los items existentes en el JComboBox
-        Nodo<String> autorAux = Inicio.autores.getFirst(); // Obtenemos el primer autor
-        for (int i = 0; i < Inicio.autores.getLenght(); i++) { // Recorremos todos los autores
-            System.out.println(autorAux.getValor()); // Mensaje de depuración
+        Lista<String> listaSorted = Inicio.autoresBD.obtenerTitulosOrdenados(Inicio.autoresBD); // Carga los autores en orden alfabético.
+        Nodo<String> autorAux = listaSorted.getFirst(); // Obtenemos el primer autor
+        for (int i = 0; i < listaSorted.getLenght(); i++) { // Recorremos todos los autores
             Autores.addItem(autorAux.getValor()); // Agregamos cada autor al JComboBox
             autorAux = autorAux.getSiguiente(); // Avanzamos al siguiente autor
-        }
-    }
-    private void cargarResúmenesEnHashTable() {
-        Nodo<Resumen> resumenAux = Inicio.resumenes.getFirst(); // Suponiendo que Inicio.resumenes contiene los resúmenes
-        for (int i = 0; i < Inicio.resumenes.getLenght(); i++) {
-            hashTable.insertar(resumenAux.getValor()); // Inserta cada resumen en la tabla hash
-            resumenAux = resumenAux.getSiguiente();
         }
     }
 
@@ -99,8 +85,8 @@ public class BuscarPorAutor extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 204));
-        jLabel6.setText("Buscar Por Autor");
-        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 250, 40));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Metro mendeley (4).png"))); // NOI18N
+        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 150, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Metro mendeley.png"))); // NOI18N
         panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 80));
@@ -108,6 +94,7 @@ public class BuscarPorAutor extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Metro mendeley comp.png"))); // NOI18N
         panelRound1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 240, 80));
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
@@ -222,7 +209,7 @@ public class BuscarPorAutor extends javax.swing.JFrame {
     private void AutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoresActionPerformed
         String autor = (String) Autores.getSelectedItem();
         if (autor != null) {
-            Lista<Resumen> listaResum = hashTable.buscarPorAutor(autor);
+            Lista<Resumen> listaResum = Inicio.tabla.buscarPorAutor(autor);
             modelo.removeAllElements();
             Nodo<Resumen> resumenAux = listaResum.getFirst();
             while (resumenAux != null) {
@@ -230,7 +217,7 @@ public class BuscarPorAutor extends javax.swing.JFrame {
                 resumenAux = resumenAux.getSiguiente();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Autores Cargados");
+            
         }
     }//GEN-LAST:event_AutoresActionPerformed
 

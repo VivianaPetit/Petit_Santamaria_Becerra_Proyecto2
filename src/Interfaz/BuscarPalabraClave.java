@@ -28,26 +28,7 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
-    
-    
-   
 
-    public Lista<Resumen> buscarPorPalabraClave(String palabra){
-        Nodo<String> tituloAux = Inicio.titulos.getFirst();
-        int index; 
-        Resumen resumen;
-        Lista<Resumen> resumscoincidentes = new Lista<>();
-        for (int i=0; i<Inicio.titulos.getLenght(); i++) {
-            index = Inicio.tabla.generarIndex(tituloAux.getValor());
-            resumen = Inicio.tabla.getResumenAt(index);
-            if (resumen.getPalabras_clave().contains(palabra.toLowerCase().trim())) {
-                resumscoincidentes.insertFinal(resumen);     
-            } 
-            tituloAux = tituloAux.getSiguiente(); 
-        }
-        System.out.println(palabra.toLowerCase().trim());
-        return resumscoincidentes;
-    }
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,7 +57,6 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         seleccionarBtn1 = new Interfaz.PanelRound();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,9 +84,11 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         });
         panelRound1.add(input, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 130, 30));
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
+        jTextArea1.setToolTipText("");
         jScrollPane1.setViewportView(jTextArea1);
 
         panelRound1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 330, 190));
@@ -203,14 +185,6 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
 
         panelRound1.add(seleccionarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, 20));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panelRound1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, -1, -1));
-
         getContentPane().add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 360));
 
         pack();
@@ -246,7 +220,7 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         String palabra = input.getText();
         if (!palabra.equals("") && !palabra.equals(" ")){
             modelo.removeAllElements();
-            Lista<Resumen> resumenes = buscarPorPalabraClave(palabra);
+            Lista<Resumen> resumenes = Inicio.tabla.buscarPorPalabraClave(palabra);
             if (!resumenes.esVacio()){
                 Nodo<Resumen> aux = resumenes.getFirst();
                 for (int i=0; i<resumenes.getLenght(); i++){
@@ -268,16 +242,9 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_menuBtnMousePressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField input;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

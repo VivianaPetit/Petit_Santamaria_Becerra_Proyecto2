@@ -73,7 +73,7 @@ public class Lista<E> {
         }
         return cadena;
     }
-
+    
     public String toStringAt(int index) {
         String valor = "";
         Nodo<E> aux = first;
@@ -105,14 +105,52 @@ public class Lista<E> {
     }
     
     public boolean existe(E valor) {
+        boolean encontrado = false;
         Nodo<E> actual = first;
         while (actual != null) {
             if (actual.getValor().equals(valor)) {
-                return true;
+                encontrado = true;
             }
             actual = actual.getSiguiente();
         }
-        return false;
+        return encontrado;
+    }
+    
+    public Lista<String> obtenerTitulosOrdenados(Lista<String> titulos) {
+        return ordenarLista(titulos);
+    }
+
+    private Lista<String> ordenarLista(Lista<String> lista) {
+        String[] arr = new String[lista.getLenght()];
+        Nodo<String> actual = lista.getFirst();
+        int index = 0;
+        while (actual != null) {
+            arr[index++] = actual.getValor();
+            actual = actual.getSiguiente();
+        }
+        // Ordenamiento burbuja
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j].compareTo(arr[j + 1]) > 0) {
+                    String temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        Lista<String> sortedList = new Lista<>();
+        for (String titulo : arr) {
+            sortedList.insertFinal(titulo);
+        }
+        return sortedList;
+    }
+    
+    public void imprimir(){
+        Nodo<E> aux = first;
+        while (aux != null) {
+            System.out.println(aux.getValor());
+            aux = aux.getSiguiente();
+        }
     }
 
     /**
@@ -167,34 +205,5 @@ public class Lista<E> {
      */
     public void setLenght(int length) {
         this.length = length;
-    }
-
-    public Lista<String> obtenerTitulosOrdenados(Lista<String> titulos) {
-        return ordenarLista(titulos);
-    }
-
-    private Lista<String> ordenarLista(Lista<String> lista) {
-        String[] arr = new String[lista.getLenght()];
-        Nodo<String> current = lista.getFirst();
-        int index = 0;
-        while (current != null) {
-            arr[index++] = current.getValor();
-            current = current.getSiguiente();
-        }
-        // Ordenamiento burbuja
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = 0; j < arr.length - 1 - i; j++) {
-                if (arr[j].compareTo(arr[j + 1]) > 0) {
-                    String temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
-        Lista<String> sortedList = new Lista<>();
-        for (String titulo : arr) {
-            sortedList.insertFinal(titulo);
-        }
-        return sortedList;
     }
 }

@@ -4,16 +4,14 @@
  */
 package Interfaz;
 
-import Interfaz.BuscarPalabraClave;
-import Interfaz.AnalizarResumeness;
-import metromendeley.HashTable;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author vivia
  */
 public class Menu extends javax.swing.JFrame {
-
+    Fuentes tipoFuente;
     /**
      * Creates new form Ventana1
      */
@@ -21,6 +19,12 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        tipoFuente = new Fuentes();
+        jLabel8.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
+        jLabel5.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
+        jLabel6.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
+        jLabel7.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
+        jLabel9.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
     }
 
     /**
@@ -39,11 +43,13 @@ public class Menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         panelRound3 = new Interfaz.PanelRound();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         panelRound4 = new Interfaz.PanelRound();
         jLabel6 = new javax.swing.JLabel();
         panelRound5 = new Interfaz.PanelRound();
         jLabel7 = new javax.swing.JLabel();
+        panelRound6 = new Interfaz.PanelRound();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -73,7 +79,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel5.setText("Buscar por Palabra Clave");
         panelRound1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 40));
 
-        panelRound2.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 250, 40));
+        panelRound2.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 250, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono.png"))); // NOI18N
         panelRound2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 70, 20));
@@ -82,7 +88,7 @@ public class Menu extends javax.swing.JFrame {
         panelRound2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 70));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono.png"))); // NOI18N
-        panelRound2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 70, 250));
+        panelRound2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 70, 270));
 
         panelRound3.setBackground(new java.awt.Color(2, 64, 83));
         panelRound3.setRoundBottomLeft(10);
@@ -96,18 +102,13 @@ public class Menu extends javax.swing.JFrame {
         });
         panelRound3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono lupa (2).png"))); // NOI18N
-        jLabel4.setText("Analizar Resumen");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
-            }
-        });
-        panelRound3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, -1));
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono lupa (2).png"))); // NOI18N
+        jLabel8.setText("Analizar Resumen");
+        panelRound3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 180, -1));
 
-        panelRound2.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 250, 40));
+        panelRound2.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 250, 40));
 
         panelRound4.setBackground(new java.awt.Color(2, 64, 83));
         panelRound4.setRoundBottomLeft(10);
@@ -127,7 +128,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel6.setText("Buscar por Autor");
         panelRound4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
 
-        panelRound2.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 250, 40));
+        panelRound2.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 250, 40));
 
         panelRound5.setBackground(new java.awt.Color(2, 64, 83));
         panelRound5.setRoundBottomLeft(10);
@@ -143,62 +144,84 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono-exit.png"))); // NOI18N
-        jLabel7.setText("Salir");
+        jLabel7.setText("Cargar Resumen");
         panelRound5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
 
-        panelRound2.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 250, 40));
+        panelRound2.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 250, 40));
 
-        getContentPane().add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 320));
+        panelRound6.setBackground(new java.awt.Color(2, 64, 83));
+        panelRound6.setRoundBottomLeft(10);
+        panelRound6.setRoundBottomRight(10);
+        panelRound6.setRoundTopLeft(10);
+        panelRound6.setRoundTopRight(10);
+        panelRound6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelRound6MousePressed(evt);
+            }
+        });
+        panelRound6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono-exit.png"))); // NOI18N
+        jLabel9.setText("Salir");
+        panelRound6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
+
+        panelRound2.add(panelRound6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 250, 40));
+
+        getContentPane().add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelRound5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound5MousePressed
-        this.dispose();
+        CargarResumen v4 = new CargarResumen();
+        this.setVisible(false);
+        v4.setVisible(true);
     }//GEN-LAST:event_panelRound5MousePressed
 
     private void panelRound1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound1MousePressed
-        BuscarPalabraClave v3 = new BuscarPalabraClave();
+        BuscarPalabraClave v2 = new BuscarPalabraClave();
         this.setVisible(false);
-        v3.setVisible(true);
+        v2.setVisible(true);
         this.setLocationRelativeTo(null);
     }//GEN-LAST:event_panelRound1MousePressed
 
     private void panelRound3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound3MousePressed
         // TODO add your handling code here:
-        HashTable tabla = new HashTable();
-
-        AnalizarResumeness p = new AnalizarResumeness();
+        AnalizarResumenes v1 = new AnalizarResumenes();
         this.setVisible(false);
-        p.setVisible(true);
+        v1.setVisible(true);
         this.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_panelRound3MousePressed
 
-    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel4MousePressed
-
     private void panelRound4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound4MousePressed
-        BuscarPorAutor v1 = new BuscarPorAutor();
+        BuscarPorAutor v3 = new BuscarPorAutor();
         this.setVisible(false);
-        v1.setVisible(true);
+        v3.setVisible(true);
     }//GEN-LAST:event_panelRound4MousePressed
+
+    private void panelRound6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelRound6MousePressed
+        JOptionPane.showMessageDialog(null, "¡Vuelve pronto!");
+        System.exit(0);
+    }//GEN-LAST:event_panelRound6MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private Interfaz.PanelRound panelRound1;
     private Interfaz.PanelRound panelRound2;
     private Interfaz.PanelRound panelRound3;
     private Interfaz.PanelRound panelRound4;
     private Interfaz.PanelRound panelRound5;
+    private Interfaz.PanelRound panelRound6;
     // End of variables declaration//GEN-END:variables
 }
