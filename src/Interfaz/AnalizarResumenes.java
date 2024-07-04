@@ -153,7 +153,11 @@ public class AnalizarResumenes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+    *Cuenta la cantidad de veces que se repite cierta palabra en el resumen seleccionado por el titulo pasado por parametro
+    *@param titulo
+    *@return cadena Frecuencia de la palabra en el texto
+    */
     public String contadorFrecuencia(String titulo) {
 
         String text = Inicio.tabla.getResumen(titulo).getCuerpo();
@@ -186,7 +190,12 @@ public class AnalizarResumenes extends javax.swing.JFrame {
         return cadena;
     }
 
-    // Método para contar las apariciones de una palabra clave en el texto
+    /**
+    * Funcion encargada de contar las veces que hay cierta palabra dentro del texto
+    * @param text 
+    * @param keyword
+    * @return cantidad de veces
+    */
     private static int contadorApariciones(String text, String keyword) {
         int count = 0;
         int index = 0;
@@ -198,14 +207,21 @@ public class AnalizarResumenes extends javax.swing.JFrame {
 
         return count;
     }
-    
+    /**
+    *Vuelve en mayusculas la primera letra de cada palabra
+    *@param input
+    *@return input retorna el string con la primera letra en mayusculas
+    */
     public String capitalize(String input) {
         if (input == null || input.isEmpty()) {
             return input;
         }
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
-
+    /**
+    *Encargada de cargar los titulos de los resumenes atraves de una lista
+    *Funcion vacia
+    */
     public void CargarTitulosResumenes() {
         Lista lista = new Lista();
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -220,7 +236,8 @@ public class AnalizarResumenes extends javax.swing.JFrame {
         }
         jList2.setModel(listModel);
     }
-
+/*
+    Funcion encargada de la seleccion UNICA de las opciones presentes en el JList */
 
     private void seleccionarBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccionarBtnMousePressed
 
@@ -233,7 +250,9 @@ public class AnalizarResumenes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccionar un documento");
         }
     }//GEN-LAST:event_seleccionarBtnMousePressed
-
+    /**
+    *Funcion que conecta la interfaz con el codigo para moverse de Analizar Resumen a Menu
+    */
     private void menuBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBtnMousePressed
         Menu menu = new Menu();
         this.setVisible(false);
