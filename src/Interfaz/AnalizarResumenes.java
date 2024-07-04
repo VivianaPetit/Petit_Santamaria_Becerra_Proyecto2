@@ -222,7 +222,7 @@ public class AnalizarResumenes extends javax.swing.JFrame {
     *Encargada de cargar los titulos de los resumenes atraves de una lista
     *Funcion vacia
     */
-    public void CargarTitulosResumenes() {
+    public final void CargarTitulosResumenes() {
         Lista lista = new Lista();
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
