@@ -29,7 +29,6 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +56,7 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         seleccionarBtn1 = new Interfaz.PanelRound();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,8 +117,9 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(2, 64, 83));
-        jLabel6.setText("Ingrese la palabra clave");
-        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 130, -1));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("(Sensible a tíldes)");
+        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 110, -1));
 
         seleccionarBtn.setBackground(new java.awt.Color(2, 64, 83));
         seleccionarBtn.setRoundBottomLeft(10);
@@ -185,6 +186,11 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
 
         panelRound1.add(seleccionarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, 20));
 
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(2, 64, 83));
+        jLabel10.setText("Ingrese la palabra clave");
+        panelRound1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 76, 130, 30));
+
         getContentPane().add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 360));
 
         pack();
@@ -246,6 +252,7 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField input;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

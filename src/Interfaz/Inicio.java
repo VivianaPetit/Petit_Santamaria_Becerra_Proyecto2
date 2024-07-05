@@ -24,6 +24,7 @@ public class Inicio extends javax.swing.JFrame {
     public static Lista<String> palabrasClavesBD; 
     public static Lista<String> titulos; 
     public static Lista<String> autoresBD;
+    public static HashTable tablaPalabrasClave;
     Fuentes tipoFuente;
     public static String rutaBaseProyecto;
 
@@ -33,11 +34,12 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         rutas = new Lista<>();
-        tabla = new HashTable();
+        tabla = new HashTable(51);
         palabrasClavesBD = new Lista<>();
         titulos = new Lista<>();
         autoresBD = new Lista<>();
         tipoFuente = new Fuentes();
+        tablaPalabrasClave = new HashTable(110);
         rutaBaseProyecto = System.getProperty("user.dir");
         jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
@@ -45,6 +47,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     public static boolean crearResumenes(String ruta) {
+        boolean insertado = false;
         try {
             FileReader fr = new FileReader(ruta);
             BufferedReader br = new BufferedReader(fr);
@@ -94,11 +97,12 @@ public class Inicio extends javax.swing.JFrame {
                 palabrasClavesBD.insertFinal(palabra.trim().toLowerCase());
                 palabrasClaves.insertFinal(palabra);
             }
+            
             if (!(cuerpo.equals(""))) {
                 resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
                 // Se guardan los resumenes en el hashtable. 
-                tabla.insertar(resumen);
-                return true; 
+                insertado = tabla.insertar(resumen);
+                return insertado; 
             } else {
                 JOptionPane.showMessageDialog(null, "Documento no válido.");
             }
@@ -106,7 +110,7 @@ public class Inicio extends javax.swing.JFrame {
         catch (Exception e) {
             
         }
-        return false; 
+        return insertado; 
     }
 
     /**

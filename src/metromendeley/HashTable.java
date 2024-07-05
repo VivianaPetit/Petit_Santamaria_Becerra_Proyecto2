@@ -4,7 +4,7 @@
  */
 package metromendeley;
 
-import Interfaz.Inicio;
+import Interfaz.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,9 +16,10 @@ public class HashTable {
 
     /**
      * Constructor de la clase HashTable.
+     * @param n
      */
-    public HashTable() {
-        this.array = new Resumen[100];
+    public HashTable(int n) {
+        this.array = new Resumen[n];
     }
 
     /**
@@ -49,7 +50,12 @@ public class HashTable {
         return index;
     }
 
-    public void insertar(Resumen resumen) {
+    /**
+     *
+     * @param resumen
+     * @return
+     */
+    public boolean insertar(Resumen resumen) {
         int index = generarIndex(resumen.getTitulo());
 
         if (this.array[index] == null) {
@@ -60,10 +66,30 @@ public class HashTable {
                 this.array[index] = resumen;
             } else {
                 JOptionPane.showMessageDialog(null, "El resumen " + '"' + resumen.getTitulo() + '"' + " ya se encuentra en el sistema.");
+                return false;
             }
         }
-
+        return true;
     }
+    
+    /**
+     *
+     * @param resumen
+     */
+    public void insertar2(Resumen resumen) {
+        Nodo<String> aux = resumen.getPalabras_clave().getFirst();
+        while (aux != null){
+            int index = generarIndex(aux.getValor());
+
+            if (this.array[index] == null) {
+                this.array[index] = resumen;
+            } else {
+                index = generarIndexAux(aux.getValor());
+                this.array[index] = resumen;
+            }
+        }
+    }
+    
 
     public void imprimir() {
         for (Resumen array1 : this.array) {

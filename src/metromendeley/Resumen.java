@@ -83,7 +83,7 @@ public class Resumen {
     public boolean tieneAutor(String autor) {
         Nodo<String> autorActual = autores.getFirst();
         while (autorActual != null) {
-            if (autorActual.getValor().equals(autor)) {
+            if (autorActual.getValor().trim().equals(autor.trim())) {
                 return true;
             }
             autorActual = autorActual.getSiguiente();
