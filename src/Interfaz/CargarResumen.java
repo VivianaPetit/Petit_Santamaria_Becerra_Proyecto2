@@ -8,7 +8,11 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +34,7 @@ public class CargarResumen extends javax.swing.JFrame {
         tipoFuente = new Fuentes();
         jLabel4.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
         jLabel8.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 15));
+        jLabel5.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 18));
     }
     
     public String buscarArchivo() {
@@ -82,10 +87,21 @@ public class CargarResumen extends javax.swing.JFrame {
     }
     
     public String generarNombre(){ 
-        Random random = new Random();
-        int num = random.nextInt(150);
-        String nombre = "resumen" + num;
-        return nombre;
+        String idNombre = UUID.randomUUID().toString();
+        try {
+            Path directorioResumenes = Paths.get(rutaBaseProyecto, "src", "Resumenes");
+            
+            for (Path archivo : Files.newDirectoryStream(directorioResumenes)) {
+                String nombre = archivo.getFileName().toString().replaceAll(".txt", "");
+                if (nombre.equals(idNombre)){
+                    idNombre = UUID.randomUUID().toString();
+                }
+                // System.out.println(nombre);
+            }
+        } catch (IOException e) {
+           JOptionPane.showMessageDialog(null, e);
+        }
+        return idNombre;
     }
 
     /**
@@ -103,8 +119,10 @@ public class CargarResumen extends javax.swing.JFrame {
         panelRound3 = new Interfaz.PanelRound();
         panelRound2 = new Interfaz.PanelRound();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         menuBtn = new Interfaz.PanelRound();
         jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,12 +160,18 @@ public class CargarResumen extends javax.swing.JFrame {
         panelRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Buscar Archivo");
-        panelRound2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        panelRound2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
-        panelRound3.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 180, 60));
+        panelRound3.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 180, 60));
 
-        panelRound1.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 290, 120));
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(2, 64, 83));
+        jLabel6.setText("Sólo archivos tipo .txt");
+        panelRound3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 120, 20));
+
+        panelRound1.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 300, 120));
 
         menuBtn.setBackground(new java.awt.Color(2, 64, 83));
         menuBtn.setRoundBottomLeft(10);
@@ -169,6 +193,11 @@ public class CargarResumen extends javax.swing.JFrame {
 
         panelRound1.add(menuBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 80, 20));
 
+        jLabel5.setForeground(new java.awt.Color(2, 64, 83));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Carga un nuevo resumen al sistema.");
+        panelRound1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 250, 20));
+
         getContentPane().add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
@@ -185,10 +214,6 @@ public class CargarResumen extends javax.swing.JFrame {
         if (!(contenido.equals("")) && creado){
             guardarArchivo(contenido, rutaNueva);
         }
-        
-        Menu v3 = new Menu();
-        this.setVisible(false);
-        v3.setVisible(true);
     }//GEN-LAST:event_panelRound2MousePressed
 
     private void menuBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBtnMousePressed
@@ -236,6 +261,8 @@ public class CargarResumen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private Interfaz.PanelRound menuBtn;
     private Interfaz.PanelRound panelRound1;

@@ -79,14 +79,14 @@ public class HashTable {
     public void insertar2(Resumen resumen) {
         Nodo<String> aux = resumen.getPalabras_clave().getFirst();
         while (aux != null){
-            int index = generarIndex(aux.getValor());
-
+            int index = generarIndex(aux.getValor().trim().toLowerCase());
             if (this.array[index] == null) {
                 this.array[index] = resumen;
-            } else {
-                index = generarIndexAux(aux.getValor());
+            } else if (this.array[index].getPalabras_clave().contains(aux.getValor())){
+                index = generarIndexAux(aux.getValor().trim().toLowerCase());
                 this.array[index] = resumen;
             }
+            aux = aux.getSiguiente();
         }
     }
     
@@ -102,6 +102,10 @@ public class HashTable {
     public Resumen getResumen(String titulo) {
         int index = generarIndex(titulo);
         Resumen resumen = getResumenAt(index);
+        if (resumen == null){
+            index = generarIndexAux(titulo);
+            resumen = getResumenAt(index);
+        }
         return resumen;
     }
 
@@ -136,20 +140,4 @@ public class HashTable {
         return listaResum;
     }
     
-     public Lista<Resumen> buscarPorPalabraClave(String palabra){
-        Nodo<String> tituloAux = Inicio.titulos.getFirst();
-        int index; 
-        Resumen resumen;
-        Lista<Resumen> resumscoincidentes = new Lista<>();
-        for (int i=0; i<Inicio.titulos.getLenght(); i++) {
-            index = Inicio.tabla.generarIndex(tituloAux.getValor());
-            resumen = Inicio.tabla.getResumenAt(index);
-            if (resumen.getPalabras_clave().contains(palabra.toLowerCase().trim())) {
-                resumscoincidentes.insertFinal(resumen);     
-            } 
-            tituloAux = tituloAux.getSiguiente(); 
-        }
-        return resumscoincidentes;
-    }
-   
 }

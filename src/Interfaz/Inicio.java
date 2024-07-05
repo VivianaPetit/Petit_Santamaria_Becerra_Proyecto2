@@ -34,12 +34,12 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         rutas = new Lista<>();
-        tabla = new HashTable(51);
+        tabla = new HashTable(100);
         palabrasClavesBD = new Lista<>();
         titulos = new Lista<>();
         autoresBD = new Lista<>();
         tipoFuente = new Fuentes();
-        tablaPalabrasClave = new HashTable(110);
+        tablaPalabrasClave = new HashTable(300);
         rutaBaseProyecto = System.getProperty("user.dir");
         jLabel1.setFont(tipoFuente.fuente(tipoFuente.nombre, 0, 22));
         this.setResizable(false);
@@ -102,6 +102,8 @@ public class Inicio extends javax.swing.JFrame {
                 resumen = new Resumen(titulo, autores, cuerpo, palabrasClaves);
                 // Se guardan los resumenes en el hashtable. 
                 insertado = tabla.insertar(resumen);
+                tablaPalabrasClave.insertar2(resumen);
+                // tablaPalabrasClave.imprimir();
                 return insertado; 
             } else {
                 JOptionPane.showMessageDialog(null, "Documento no válido.");
@@ -112,6 +114,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         return insertado; 
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -187,7 +190,7 @@ public class Inicio extends javax.swing.JFrame {
             for (Path archivo : Files.newDirectoryStream(directorioResumenes)) {
                 String rutaAbsoluta = archivo.toAbsolutePath().toString();
                 crearResumenes(rutaAbsoluta);
-                System.out.println(rutaAbsoluta);
+                // System.out.println(rutaAbsoluta);
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e);

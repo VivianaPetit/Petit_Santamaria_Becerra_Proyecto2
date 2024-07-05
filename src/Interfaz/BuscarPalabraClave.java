@@ -119,7 +119,7 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(2, 64, 83));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("(Sensible a tíldes)");
-        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 110, -1));
+        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 110, -1));
 
         seleccionarBtn.setBackground(new java.awt.Color(2, 64, 83));
         seleccionarBtn.setRoundBottomLeft(10);
@@ -226,16 +226,12 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         String palabra = input.getText();
         if (!palabra.equals("") && !palabra.equals(" ")){
             modelo.removeAllElements();
-            Lista<Resumen> resumenes = Inicio.tabla.buscarPorPalabraClave(palabra);
-            if (!resumenes.esVacio()){
-                Nodo<Resumen> aux = resumenes.getFirst();
-                for (int i=0; i<resumenes.getLenght(); i++){
-                    modelo.addElement(aux.getValor().getTitulo());
-                    aux = aux.getSiguiente();
-                } 
+            Resumen resumen = Inicio.tablaPalabrasClave.getResumen(palabra.trim().toLowerCase());
+            if (resumen != null){
+                modelo.addElement(resumen.getTitulo());
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontraron documentos coincidentes.");
-                } 
+                JOptionPane.showMessageDialog(null, "No se encontraron resuemenes coincidentes.");
+            }  
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese una palabra.");
         }

@@ -144,8 +144,9 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Metro mendeley (6).png"))); // NOI18N
         jLabel7.setText("Cargar Resumen");
-        panelRound5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
+        panelRound5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 160, 40));
 
         panelRound2.add(panelRound5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 250, 40));
 
