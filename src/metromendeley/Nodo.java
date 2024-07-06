@@ -5,17 +5,20 @@
 package metromendeley;
 
 /**
- *
- * @author VivianaPetit
- * @param <E>
+ * Clase que representa un nodo en una estructura de datos enlazada.
+ * 
+ * @param <E> el tipo de elemento almacenado en el nodo
+ * 
+ * @autor VivianaPetit
  */
 public class Nodo<E> {
     private E valor;
     private Nodo siguiente;
     
     /**
-     * Constructor de la clase.
-     * @param valor informaci&oacute; para crear el nodo.
+     * Constructor de la clase Nodo.
+     * 
+     * @param valor informaci&oacute;n para crear el nodo.
      */
     public Nodo (E valor){
         this.siguiente=null;

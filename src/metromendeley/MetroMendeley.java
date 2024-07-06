@@ -11,7 +11,9 @@ import Interfaz.*;
 public class MetroMendeley {
 
     /**
-     * @param args the command line arguments
+     * Método principal que inicia la aplicación.
+     * 
+     * @param args los argumentos de la línea de comandos
      */
     public static void main(String[] args) {
         Inicio v2 = new Inicio();
