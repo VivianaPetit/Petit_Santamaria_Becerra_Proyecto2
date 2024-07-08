@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author vivia
+ * @author VivianaPetit 
  */
 public class CargarResumen extends javax.swing.JFrame {
     Fuentes tipoFuente;
@@ -37,6 +37,10 @@ public class CargarResumen extends javax.swing.JFrame {
         jLabel5.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 18));
     }
     
+    /**
+     * Permite al usuario cargar un archivo de texto .txt y devuelve la ruta del mismo.
+     * @return la ruta del archivo .txt seleccionado por el usuario.
+     */
     public String buscarArchivo() {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Texto", "txt");
         JFileChooser fileChooser = new JFileChooser();
@@ -52,9 +56,14 @@ public class CargarResumen extends javax.swing.JFrame {
         return "";
     }
     
-    private void guardarArchivo(String contenido, String archivo){
+    /**
+     * Guarda un archivo de texto en una carpeta.
+     * @param contenido contenido del archivo de texto a guardar.
+     * @param rutaArchivo ruta donde se guardara el archivo de texto.
+     */
+    public void guardarArchivo(String contenido, String rutaArchivo){
         try {  
-            FileWriter fw = new FileWriter(archivo);
+            FileWriter fw = new FileWriter(rutaArchivo);
             BufferedWriter bw = new BufferedWriter(fw);
 
             bw.write(contenido);
@@ -67,7 +76,12 @@ public class CargarResumen extends javax.swing.JFrame {
         }
     }
     
-    private static String leerArchivo(String archivo){
+    /**
+     * Lee un archivo txt y guarda su contenido en una variable. 
+     * @param archivo Archivo txt del cual se obtendra su contenido. 
+     * @return Un <code>String</code> con el contenido del archivo.
+     */
+    public String leerArchivo(String archivo){
         StringBuilder contenido = new StringBuilder();
         try {
             FileReader fr = new FileReader(archivo);
@@ -86,6 +100,11 @@ public class CargarResumen extends javax.swing.JFrame {
         return contenido.toString();
     }
     
+    /**
+     * Genera un nombre unico para los archivos.
+     * Valida que no exista ya un archivo con ese nombre.
+     * @return Un <code>String</code> con el nombre para el archivo. 
+     */
     public String generarNombre(){ 
         String idNombre = UUID.randomUUID().toString();
         try {

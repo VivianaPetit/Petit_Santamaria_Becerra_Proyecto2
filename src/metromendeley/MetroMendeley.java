@@ -14,6 +14,7 @@ public class MetroMendeley {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Se inicializa el programa.
         Inicio v2 = new Inicio();
         v2.setVisible(true);
         

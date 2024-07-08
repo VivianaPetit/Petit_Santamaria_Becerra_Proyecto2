@@ -4,7 +4,6 @@
  */
 package metromendeley;
 
-import Interfaz.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,20 +15,21 @@ public class HashTable {
 
     /**
      * Constructor de la clase HashTable.
-     * @param n
+     * @param n <code>int</code> con el tamaño del hashtable. 
      */
     public HashTable(int n) {
         this.array = new Resumen[n];
     }
 
     /**
-     *
-     * @param titulo
-     * @return
+     * Genera un índice hash para un key dado.
+     * 
+     * @param key El título del resumen.
+     * @return El índice hash generado.
      */
-    public int generarIndex(String titulo) {
+    public int generarIndex(String key) {
         int hash = 0;
-        for (char caracter : titulo.toCharArray()) {
+        for (char caracter : key.toCharArray()) {
             hash = hash + caracter;
         }
         int index = Math.abs(hash) % array.length;
@@ -37,13 +37,14 @@ public class HashTable {
     }
    
     /**
-     *
-     * @param titulo
-     * @return
+     * Genera un índice hash alternativo para un key dado.
+     * 
+     * @param key El título del resumen.
+     * @return El índice hash alternativo generado.
      */
-    public int generarIndexAux(String titulo) {
+    public int generarIndexAux(String key) {
         int hash = 0;
-        for (char caracter : titulo.toCharArray()) {
+        for (char caracter : key.toCharArray()) {
             hash = (3 * hash) + caracter;
         }
         int index = Math.abs(hash) % array.length;
@@ -51,9 +52,11 @@ public class HashTable {
     }
 
     /**
-     *
-     * @param resumen
-     * @return
+     * Inserta un resumen en la tabla hash.
+     * Si el índice generado ya está ocupado y el título no coincide, se utiliza el índice alternativo.
+     * 
+     * @param resumen El resumen a insertar.
+     * @return true si la inserción fue exitosa, false si el título ya existe en la tabla.
      */
     public boolean insertar(Resumen resumen) {
         int index = generarIndex(resumen.getTitulo());
@@ -73,8 +76,9 @@ public class HashTable {
     }
     
     /**
-     *
-     * @param resumen
+     * Inserta un resumen en la tabla hash utilizando sus palabras clave para generar los índices.
+     * 
+     * @param resumen El resumen a insertar.
      */
     public void insertar2(Resumen resumen) {
         Nodo<String> aux = resumen.getPalabras_clave().getFirst();
@@ -90,29 +94,37 @@ public class HashTable {
         }
     }
     
-
-    public void imprimir() {
-        for (Resumen array1 : this.array) {
-            if (array1 != null) {
-                System.out.println("Titulo: " + array1.getTitulo());
-            }
-        }
-    }
-
-    public Resumen getResumen(String titulo) {
-        int index = generarIndex(titulo);
+     /**
+     * Obtiene un resumen a partir de su key.
+     * 
+     * @param key La key del resumen.
+     * @return El resumen correspondiente al título, o null si no se encuentra.
+     */
+    public Resumen getResumen(String key) {
+        int index = generarIndex(key);
         Resumen resumen = getResumenAt(index);
         if (resumen == null){
-            index = generarIndexAux(titulo);
+            index = generarIndexAux(key);
             resumen = getResumenAt(index);
         }
         return resumen;
     }
-
+    
+    /**
+     * Obtener un resumen por el index. 
+     * @param index posicion del resumen en el hashtable.
+     * @return Un resumen si existe. 
+     */
     public Resumen getResumenAt(int index) {
         return array[index];
     }
 
+    /**
+     * Verifica si hay un resumen en una posición específica de la tabla hash.
+     * 
+     * @param index El índice a verificar.
+     * @return true si hay un resumen en la posición especificada, false en caso contrario.
+     */
     public boolean isResumenAt(int index) {
         boolean encontrado = false;
         if (array[index] != null) {
@@ -120,16 +132,31 @@ public class HashTable {
         }
         return encontrado;
     }
-
+    
+    /**
+     * Obtiene el array de resúmenes de la tabla hash.
+     * 
+     * @return El array de resúmenes.
+     */
     public Resumen[] getArray() {
         return array;
     }
-
+    
+    /**
+     * Establece el array de resúmenes de la tabla hash.
+     * 
+     * @param array El nuevo array de resúmenes.
+     */
     public void setArray(Resumen[] array) {
         this.array = array;
     }
     
-    // Método: Busca resúmenes por autor.
+    /**
+     * Metodo Busca resúmenes por autor.
+     * 
+     * @param autor El nombre del autor.
+     * @return Una lista de resúmenes escritos por el autor especificado.
+     */
     public Lista<Resumen> buscarPorAutor(String autor) {
         Lista<Resumen> listaResum = new Lista<>();
         for (Resumen resumen : array) {

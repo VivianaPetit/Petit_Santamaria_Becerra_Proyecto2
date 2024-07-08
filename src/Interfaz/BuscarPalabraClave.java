@@ -7,7 +7,7 @@ import javax.swing.*;
 import metromendeley.*;
 /**
  *
- * @author vivia
+ * @author VivianaPetit
  */
 public class BuscarPalabraClave extends javax.swing.JFrame {
     DefaultListModel modelo;
@@ -205,13 +205,14 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
     }//GEN-LAST:event_jList2ValueChanged
 
     private void seleccionarBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccionarBtnMousePressed
+
         jTextArea1.setText("");
         jList2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         String selectedValue = jList2.getSelectedValue();
         if (selectedValue != null){
-            Resumen resumen = Inicio.tabla.getResumen(selectedValue);
-            String resumenStr = resumen.toString();
-            jTextArea1.setText(resumenStr);
+            Resumen resumen = Inicio.tabla.getResumen(selectedValue); // Busca el resumen del titulo seleccionado en el hashtable.
+            String resumenStr = resumen.toString(); 
+            jTextArea1.setText(resumenStr); // Se muestra el resumen 
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un documento.");
         }
@@ -226,9 +227,10 @@ public class BuscarPalabraClave extends javax.swing.JFrame {
         String palabra = input.getText();
         if (!palabra.equals("") && !palabra.equals(" ")){
             modelo.removeAllElements();
+            // Se busca en el hashtable de palabras el resumen coincidente.
             Resumen resumen = Inicio.tablaPalabrasClave.getResumen(palabra.trim().toLowerCase());
             if (resumen != null){
-                modelo.addElement(resumen.getTitulo());
+                modelo.addElement(resumen.getTitulo()); // Se muestra en el jList.
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron resuemenes coincidentes.");
             }  

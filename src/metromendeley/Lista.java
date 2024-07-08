@@ -54,7 +54,7 @@ public class Lista<E> {
     /**
      * Devuelve los elementos de una lista en una cadena.
      *
-     * @return <code>String</code> cadena con los elementos de la lista.
+     * @return un <code>String</code> con los elementos de la lista.
      */
     @Override
     public String toString() {
@@ -74,6 +74,12 @@ public class Lista<E> {
         return cadena;
     }
     
+    /**
+     * Devuelve el valor del nodo en la posición especificada en minúsculas y sin espacios en blanco.
+     * 
+     * @param index La posición del nodo.
+     * @return El valor del nodo como <code>String</code>.
+     */
     public String toStringAt(int index) {
         String valor = "";
         Nodo<E> aux = first;
@@ -87,10 +93,11 @@ public class Lista<E> {
         return valor;
     }
 
-    /**
-     *
-     * @param valor
-     * @return
+     /**
+     * Verifica si la lista contiene un valor especificado.
+     * 
+     * @param valor El valor a buscar en la lista.
+     * @return <code>true</code> si la lista contiene el valor, <code>false</code> en caso contrario.
      */
     public boolean contains(E valor) {
         boolean encontrado = false;
@@ -104,6 +111,12 @@ public class Lista<E> {
         return encontrado;
     }
     
+    /**
+     * Verifica si existe un nodo con el valor especificado en la lista.
+     * 
+     * @param valor El valor a buscar en la lista.
+     * @return <code>true</code> si existe un nodo con el valor, <code>false</code> en caso contrario.
+     */
     public boolean existe(E valor) {
         boolean encontrado = false;
         Nodo<E> actual = first;
@@ -116,11 +129,23 @@ public class Lista<E> {
         return encontrado;
     }
     
+    /**
+     * Obtiene una lista de títulos ordenados alfabéticamente.
+     * 
+     * @param titulos La lista de títulos a ordenar.
+     * @return Una lista ordenada de títulos.
+     */
     public Lista<String> obtenerTitulosOrdenados(Lista<String> titulos) {
         return ordenarLista(titulos);
     }
-
-    private Lista<String> ordenarLista(Lista<String> lista) {
+    
+    /**
+     * Ordena una lista de cadenas alfabéticamente utilizando el algoritmo de ordenamiento burbuja.
+     * 
+     * @param lista La lista de cadenas a ordenar.
+     * @return Una lista ordenada de cadenas.
+     */
+    public  Lista<String> ordenarLista(Lista<String> lista) {
         String[] arr = new String[lista.getLenght()];
         Nodo<String> actual = lista.getFirst();
         int index = 0;
@@ -145,13 +170,6 @@ public class Lista<E> {
         return sortedList;
     }
     
-    public void imprimir(){
-        Nodo<E> aux = first;
-        while (aux != null) {
-            System.out.println(aux.getValor());
-            aux = aux.getSiguiente();
-        }
-    }
 
     /**
      * Obtener el primer nodo.

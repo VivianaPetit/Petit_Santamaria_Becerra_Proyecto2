@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author vivia
+ * @author VivianaPetit
  */
 public class Menu extends javax.swing.JFrame {
     Fuentes tipoFuente;

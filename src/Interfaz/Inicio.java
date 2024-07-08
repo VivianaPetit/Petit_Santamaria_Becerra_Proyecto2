@@ -46,6 +46,12 @@ public class Inicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Lee un archivo y guarda su en las variables correspondietntes para crear
+     * un Resumen. Guarda el resumen en el HashTable.
+     * @param ruta
+     * @return
+     */
     public static boolean crearResumenes(String ruta) {
         boolean insertado = false;
         try {
