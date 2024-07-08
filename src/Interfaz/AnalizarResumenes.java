@@ -62,6 +62,7 @@ public class AnalizarResumenes extends javax.swing.JFrame {
         menuBtn = new Interfaz.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,6 +150,11 @@ public class AnalizarResumenes extends javax.swing.JFrame {
         jLabel5.setText("Seleccione un documento para ver más detalles");
         panelRound1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 270, -1));
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("U");
+        panelRound1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 110, -1));
+
         getContentPane().add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 360));
 
         pack();
@@ -156,7 +162,7 @@ public class AnalizarResumenes extends javax.swing.JFrame {
     /**
     *Cuenta la cantidad de veces que se repite cierta palabra en el resumen seleccionado por el titulo pasado por parametro
     *@param titulo
-    *@return cadena Frecuencia de la palabra en el texto
+    *@return cadena con la frecuencia de la palabra en el texto
     */
     public String contadorFrecuencia(String titulo) {
 
@@ -179,11 +185,9 @@ public class AnalizarResumenes extends javax.swing.JFrame {
         for (int i = 0; i < keywords.length; i++) {
             keywordCounts[i] = contadorApariciones(text, keywords[i]);
         }
-
-        // Mostrar los resultados
         String cadena = "";
         cadena += rsm.getTitulo() + "\n" + "Autores: " + rsm.getAutores().toString() + "\n\n";
-
+        
         for (int i = 0; i < keywords.length; i++) {
             cadena += capitalize(keywords[i]) + ": " + keywordCounts[i] + " coincidencia/as. \n";
         }
@@ -269,6 +273,7 @@ public class AnalizarResumenes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList2;

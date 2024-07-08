@@ -25,6 +25,10 @@ public class Menu extends javax.swing.JFrame {
         jLabel6.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
         jLabel7.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
         jLabel9.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 20));
+        jLabel4.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 28));
+        jLabel11.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 28));
+        jLabel12.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 28));
+        jLabel13.setFont(tipoFuente.fuente(tipoFuente.nombre, 1, 28));
     }
 
     /**
@@ -39,9 +43,14 @@ public class Menu extends javax.swing.JFrame {
         panelRound2 = new Interfaz.PanelRound();
         panelRound1 = new Interfaz.PanelRound();
         jLabel5 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         panelRound3 = new Interfaz.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         panelRound4 = new Interfaz.PanelRound();
@@ -81,14 +90,39 @@ public class Menu extends javax.swing.JFrame {
 
         panelRound2.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 250, 40));
 
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Ú");
+        panelRound2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 40, -1));
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("N");
+        panelRound2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 40, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono.png"))); // NOI18N
         panelRound2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 70, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Metro mendeley.png"))); // NOI18N
         panelRound2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 70));
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("M");
+        panelRound2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 40, -1));
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("E");
+        panelRound2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 40, 30));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono.png"))); // NOI18N
         panelRound2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 70, 270));
+
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("M");
+        panelRound2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 40, -1));
 
         panelRound3.setBackground(new java.awt.Color(2, 64, 83));
         panelRound3.setRoundBottomLeft(10);
@@ -211,8 +245,13 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
